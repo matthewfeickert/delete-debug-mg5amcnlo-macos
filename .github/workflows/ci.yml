@@ -39,3 +39,9 @@ jobs:
       run: |
         pixi run lhapdf install NNPDF23_lo_as_0130_qed &> /dev/null
         pixi run start
+
+    - name: Check debug logs
+      run: |
+        if [[ -f ./MY_FIRST_MG5_RUN/run_01_tag_1_debug.log ]]; then
+          cat ./MY_FIRST_MG5_RUN/run_01_tag_1_debug.log
+        fi
