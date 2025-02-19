@@ -45,3 +45,13 @@ jobs:
         if [[ -f ./MY_FIRST_MG5_RUN/run_01_tag_1_debug.log ]]; then
           cat ./MY_FIRST_MG5_RUN/run_01_tag_1_debug.log
         fi
+
+    - name: Check CONDA_PREFIX/share/Pythia8/examples/Makefile.inc
+      shell: pixi run bash -e {0}
+      run: |
+        cat $CONDA_PREFIX/share/Pythia8/examples/Makefile.inc
+
+    - name: Check CONDA_PREFIX/MG5_aMC/input/mg5_configuration.txt
+      shell: pixi run bash -e {0}
+      run: |
+        cat $CONDA_PREFIX/MG5_aMC/input/mg5_configuration.txt
