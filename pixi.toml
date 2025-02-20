@@ -12,3 +12,4 @@ cmd = "mg5_aMC tutorial.mg5"
 
 [dependencies]
 mg5amcnlo = ">=3.5.7,<4"
+sed = ">=4.7,<5"
