@@ -58,6 +58,13 @@ jobs:
       run: |
         echo "install ninja" | mg5_aMC
 
+    - name: Check install logs
+      shell: pixi run bash -e {0}
+      run: |
+        if [[ -f $CONDA_PREFIX/MG5_aMC/HEPTools/ninja/ninja_install.log ]]; then
+          cat $CONDA_PREFIX/MG5_aMC/HEPTools/ninja/ninja_install.log
+        fi
+
     - name: Check CONDA_PREFIX/share/Pythia8/examples/Makefile.inc
       shell: pixi run bash -e {0}
       run: |
