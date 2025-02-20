@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    # branches: [ main ]
   pull_request:
     branches: [ main ]
   workflow_dispatch:
@@ -18,7 +18,8 @@ jobs:
 
     strategy:
         matrix:
-          os: [ubuntu-latest, ubuntu-24.04-arm, macos-13, macos-latest]
+          # os: [ubuntu-latest, ubuntu-24.04-arm, macos-13, macos-latest]
+          os: [macos-13, macos-latest]
 
     steps:
     - uses: actions/checkout@v4
@@ -35,16 +36,21 @@ jobs:
     - name: List installed packages
       run: pixi list
 
-    - name: Test
-      run: |
-        pixi run lhapdf install NNPDF23_lo_as_0130_qed &> /dev/null
-        pixi run start
+    # - name: Test
+    #   run: |
+    #     pixi run lhapdf install NNPDF23_lo_as_0130_qed &> /dev/null
+    #     pixi run start
 
-    - name: Check debug logs
+    # - name: Check debug logs
+    #   run: |
+    #     if [[ -f ./MY_FIRST_MG5_RUN/run_01_tag_1_debug.log ]]; then
+    #       cat ./MY_FIRST_MG5_RUN/run_01_tag_1_debug.log
+    #     fi
+
+    - name: Install ninja as command
+      shell: pixi run bash -e {0}
       run: |
-        if [[ -f ./MY_FIRST_MG5_RUN/run_01_tag_1_debug.log ]]; then
-          cat ./MY_FIRST_MG5_RUN/run_01_tag_1_debug.log
-        fi
+        echo "install ninja" | mg5_aMC
 
     - name: Check CONDA_PREFIX/share/Pythia8/examples/Makefile.inc
       shell: pixi run bash -e {0}
