@@ -50,7 +50,7 @@ jobs:
     - name: Fix CXX
       shell: pixi run bash -e {0}
       run: |
-        sed -i "/^CXX=/c\CXX=$CXX" $CONDA_PREFIX/MG5_aMC/input/mg5_configuration.txt
+        sed -i "/^cpp_compiler = /c\cpp_compiler = $CXX" $CONDA_PREFIX/MG5_aMC/input/mg5_configuration.txt
         cat $CONDA_PREFIX/MG5_aMC/input/mg5_configuration.txt
 
     - name: Install ninja as command
