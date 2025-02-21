@@ -7,9 +7,65 @@ version = "0.1.0"
 
 [tasks]
 
+[tasks.download]
+cmd = """
+git clone https://github.com/peraro/ninja.git source
+"""
+
+[tasks.build]
+cmd = """
+cd source && \
+autoreconf --install && \
+./configure --help && \
+./configure \
+    --prefix=$CONDA_PREFIX \
+    --enable-shared=no \
+    --enable-static=yes \
+    --enable-higher_rank \
+    --with-avholo="-L$CONDA_PREFIX/lib -lavh_olo" \
+    FCINCLUDE="-I$CONDA_PREFIX/include/oneloop" \
+    CXX="${CXX}" \
+    CXXFLAGS="-O2 -fcx-fortran-rules -fno-exceptions -fno-rtti" \
+    CPPFLAGS="-DNINJA_NO_EXCEPTIONS -fPIC" \
+    --disable-quadninja \
+    LIBS="-lc++" && \
+make && \
+make check && \
+make install
+"""
+
+[tasks.test]
+cmd = """
+cd source && \
+make examples && \
+cd examples && \
+echo -e "\n# simple_test" && \
+./simple_test && \
+echo -e "\n# simple_higher_rank_test" && \
+./simple_higher_rank_test && \
+echo -e "\n# tensor_test" && \
+./tensor_test && \
+echo -e "\n# tensor_higher_rank_test" && \
+./tensor_higher_rank_test && \
+echo -e "\n# 4photons" && \
+./4photons && \
+echo -e "\n# 6photons" && \
+./6photons && \
+echo -e "\n# ttbarh" && \
+./ttbarh
+"""
+
 [tasks.start]
-cmd = "mg5_aMC tutorial.mg5"
+depends-on = [ "download", "build", "test" ]
 
 [dependencies]
-mg5amcnlo = ">=3.5.7,<4"
 sed = ">=4.7,<5"
+automake = ">=1.17,<2"
+libtool = ">=2.4.7,<3"
+make = ">=4.4.1,<5"
+pkg-config = ">=0.29.2,<0.30"
+gnuconfig = ">=2020.11.7,<2021"
+oneloop-static = ">=3.7.2,<4"
+git = ">=2.48.1,<3"
+cxx-compiler = ">=1.9.0,<2"
+fortran-compiler = ">=1.9.0,<2"
