@@ -47,30 +47,34 @@ jobs:
     #       cat ./MY_FIRST_MG5_RUN/run_01_tag_1_debug.log
     #     fi
 
-    - name: Fix CXX
-      shell: pixi run bash -e {0}
-      run: |
-        sed -i "/^cpp_compiler = /c\cpp_compiler = $CXX" $CONDA_PREFIX/MG5_aMC/input/mg5_configuration.txt
-        cat $CONDA_PREFIX/MG5_aMC/input/mg5_configuration.txt
+    # - name: Fix CXX
+    #   shell: pixi run bash -e {0}
+    #   run: |
+    #     sed -i "/^cpp_compiler = /c\cpp_compiler = $CXX" $CONDA_PREFIX/MG5_aMC/input/mg5_configuration.txt
+    #     cat $CONDA_PREFIX/MG5_aMC/input/mg5_configuration.txt
 
-    - name: Install ninja as command
-      shell: pixi run bash -e {0}
-      run: |
-        echo "install ninja" | mg5_aMC
+    # - name: Install ninja as command
+    #   shell: pixi run bash -e {0}
+    #   run: |
+    #     echo "install ninja" | mg5_aMC
 
-    - name: Check install logs
-      shell: pixi run bash -e {0}
-      run: |
-        if [[ -f $CONDA_PREFIX/MG5_aMC/HEPTools/ninja/ninja_install.log ]]; then
-          cat $CONDA_PREFIX/MG5_aMC/HEPTools/ninja/ninja_install.log
-        fi
+    # - name: Check install logs
+    #   shell: pixi run bash -e {0}
+    #   run: |
+    #     if [[ -f $CONDA_PREFIX/MG5_aMC/HEPTools/ninja/ninja_install.log ]]; then
+    #       cat $CONDA_PREFIX/MG5_aMC/HEPTools/ninja/ninja_install.log
+    #     fi
 
-    - name: Check CONDA_PREFIX/share/Pythia8/examples/Makefile.inc
-      shell: pixi run bash -e {0}
-      run: |
-        cat $CONDA_PREFIX/share/Pythia8/examples/Makefile.inc
+    # - name: Check CONDA_PREFIX/share/Pythia8/examples/Makefile.inc
+    #   shell: pixi run bash -e {0}
+    #   run: |
+    #     cat $CONDA_PREFIX/share/Pythia8/examples/Makefile.inc
 
-    - name: Check CONDA_PREFIX/MG5_aMC/input/mg5_configuration.txt
-      shell: pixi run bash -e {0}
+    # - name: Check CONDA_PREFIX/MG5_aMC/input/mg5_configuration.txt
+    #   shell: pixi run bash -e {0}
+    #   run: |
+    #     cat $CONDA_PREFIX/MG5_aMC/input/mg5_configuration.txt
+
+    - name: Test
       run: |
-        cat $CONDA_PREFIX/MG5_aMC/input/mg5_configuration.txt
+        pixi run start
